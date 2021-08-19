@@ -43,13 +43,14 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     textAlign: "center",
-    backgroundColor: "#ffffff96",
-    width: "50%",
-    height: "50%",
-    position: "relative",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
+    // backgroundColor: "#ffffff96",
+    // width: "50%",
+    // height: "50%",
+    // position: "relative",
+    // top: "50%",
+    // left: "50%",
+    // transform: "translate(-50%, -50%)",
+    fontFamily: "Lora, serif"
   },
   avatar: {
     margin: "1rem auto",
