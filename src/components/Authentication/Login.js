@@ -27,6 +27,15 @@ const useStyles = makeStyles((theme) => ({
     boxSizing: "border-box",
     maxWidth: "inherit"
   },
+  message: {
+    backgroundColor: "#ffffff96",
+    width: "50%",
+    height: "50%",
+    position: "relative",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+  },
   image: {
     backgroundImage: 'url(https://source.unsplash.com/random)',
     backgroundRepeat: 'no-repeat',
@@ -43,13 +52,6 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     textAlign: "center",
-    // backgroundColor: "#ffffff96",
-    // width: "50%",
-    // height: "50%",
-    // position: "relative",
-    // top: "50%",
-    // left: "50%",
-    // transform: "translate(-50%, -50%)",
     fontFamily: "Lora, serif"
   },
   avatar: {
@@ -73,7 +75,7 @@ const Login = () => {
     <Container className={classes.root}>
       <CssBaseline />
       <Grid item xs={6} sm={6} md={6} lg={6} xl={6} xxl={6} elevation={6} className={classes.image}>
-        <Typography component="h1" variant="h5" className={classes.title}>
+        <Typography component="h1" variant="h5" className={classes.message}>
           Welcome Back!
         </Typography>
       </Grid>
