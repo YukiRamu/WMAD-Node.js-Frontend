@@ -25,7 +25,8 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     flexWrap: "wrap",
     boxSizing: "border-box",
-    maxWidth: "inherit"
+    maxWidth: "inherit",
+    fontFamily: "Lora, serif"
   },
   message: {
     backgroundColor: "#ffffff96",
@@ -35,6 +36,8 @@ const useStyles = makeStyles((theme) => ({
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
+    fontFamily: "Lora, serif",
+    textAlign: "center"
   },
   image: {
     backgroundImage: 'url(https://source.unsplash.com/random)',
@@ -57,6 +60,20 @@ const useStyles = makeStyles((theme) => ({
   avatar: {
     margin: "1rem auto",
     backgroundColor: theme.palette.secondary.main,
+  },
+  buttons: {
+    marginLeft: "auto",
+    textAlign: "right",
+    paddingTop: "1rem"
+  },
+  homeBtn: {
+    backgroundColor: '#ffffff4d',
+    border: 0,
+    borderRadius: 3,
+    boxShadow: 'rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px',
+    color: "#f50057",
+    margin: "0.5rem",
+    '&:hover': { color: "white" },
   },
   form: {
     width: '100%',
@@ -81,6 +98,13 @@ const Login = () => {
       </Grid>
 
       <Grid item xs={6} sm={6} md={6} lg={6} xl={6} xxl={6} elevation={6} className={classes.loginForm}>
+        {/* Back to home page button */}
+        <Grid className={classes.buttons}>
+          <Button variant="contained" color="secondary" className={classes.homeBtn}>
+            Home
+          </Button>
+        </Grid>
+
         <div>
           <Avatar className={classes.avatar}>
             <LoyaltyIcon />
