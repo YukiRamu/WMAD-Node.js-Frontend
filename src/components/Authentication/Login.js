@@ -13,11 +13,19 @@ import LoyaltyIcon from '@material-ui/icons/Loyalty';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Copyright from '../Utils/Copyright';
+import { Container } from '@material-ui/core';
 
 /* Styles */
 const useStyles = makeStyles((theme) => ({
   root: {
     height: '100vh',
+    padding: "0",
+    margin: "0",
+    display: "flex",
+    width: "100%",
+    flexWrap: "wrap",
+    boxSizing: "border-box",
+    maxWidth: "inherit"
   },
   image: {
     backgroundImage: 'url(https://source.unsplash.com/random)',
@@ -27,18 +35,21 @@ const useStyles = makeStyles((theme) => ({
     backgroundSize: 'cover',
     backgroundPosition: 'center',
   },
-  paper: {
-    margin: theme.spacing(8, 4),
+  loginForm: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    padding: "3%"
+  },
+  title: {
+    textAlign: "center",
   },
   avatar: {
-    margin: theme.spacing(1),
+    margin: "1rem auto",
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: '100%', 
+    width: '100%',
     marginTop: theme.spacing(1),
   },
   submit: {
@@ -51,16 +62,24 @@ const Login = () => {
   const classes = useStyles();
 
   return (
-    <Grid container component="main" className={classes.root}>
+    <Container className={classes.root}>
       <CssBaseline />
-      <Grid item xs={false} sm={4} md={7} className={classes.image} />
-      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-        <div className={classes.paper}>
+      <Grid item xs={6} sm={6} md={6} lg={6} xl={6} xxl={6} elevation={6} className={classes.image}>
+        <Typography component="h1" variant="h5" className={classes.title}>
+          Welcome Back!
+        </Typography>
+      </Grid>
+
+      <Grid item xs={6} sm={6} md={6} lg={6} xl={6} xxl={6} elevation={6} className={classes.loginForm}>
+        <div>
           <Avatar className={classes.avatar}>
             <LoyaltyIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
+          <Typography component="h1" variant="h5" className={classes.title}>
             Log in
+          </Typography>
+          <Typography component="h1" variant="h5" className={classes.title}>
+            to your account
           </Typography>
           <form className={classes.form} noValidate>
             <TextField
@@ -106,17 +125,15 @@ const Login = () => {
               </Grid>
               <Grid item>
                 <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
+                  {"New User? Sign Up"}
                 </Link>
               </Grid>
             </Grid>
-            <Box mt={5}>
-              <Copyright />
-            </Box>
           </form>
         </div>
       </Grid>
-    </Grid>
+
+    </Container>
   );
 };
 

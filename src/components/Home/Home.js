@@ -63,7 +63,7 @@ const Home = () => {
           </Button>
         </Grid>
 
-        <h1 className={classes.header}>Welcome to the Chatty App :)</h1>
+        <h1 className={classes.header}>Welcome to Online Chatty App :)</h1>
         <Copyright />
       </Container>
     </>
