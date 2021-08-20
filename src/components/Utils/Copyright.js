@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
@@ -17,13 +17,14 @@ const Copyright = () => {
   );
 };
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   footer: {
     position: "absolute",
     bottom: "5%",
     left: "50%",
     transform: "translateX(-50%)",
+    fontFamily: "Lora, serif"
   }
 }));
 
-export default Copyright
+export default Copyright;

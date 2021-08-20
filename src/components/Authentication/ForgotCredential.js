@@ -1,10 +1,9 @@
 import React from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import LoyaltyIcon from '@material-ui/icons/Loyalty';
@@ -37,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: "Lora, serif"
   },
   image: {
-    backgroundImage: 'url(https://source.unsplash.com/random)',
+    backgroundImage: 'url(https://source.unsplash.com/daily)',
     backgroundRepeat: 'no-repeat',
     backgroundColor:
       theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
@@ -58,12 +57,28 @@ const useStyles = makeStyles((theme) => ({
     margin: "1rem auto",
     backgroundColor: theme.palette.secondary.main,
   },
+  buttons: {
+    marginLeft: "auto",
+    textAlign: "right",
+    paddingTop: "1rem"
+  },
+  homeBtn: {
+    backgroundColor: '#ffffff4d',
+    border: 0,
+    borderRadius: 3,
+    boxShadow: 'rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px',
+    color: "#f50057",
+    margin: "0.5rem",
+    '&:hover': { color: "white" },
+    fontFamily: "Lora, serif"
+  },
   form: {
     width: '100%',
     marginTop: theme.spacing(1),
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
+    fontFamily: "Lora, serif"
   },
 }));
 
@@ -75,12 +90,23 @@ const ForgotCredential = () => {
     <Container className={classes.root}>
       <CssBaseline />
       <Grid item xs={6} sm={6} md={6} lg={6} xl={6} xxl={6} elevation={6} className={classes.image}>
-        <Typography component="h1" variant="h5" className={classes.message}>
+        {/* <Typography component="h1" variant="h5" className={classes.message}>
           Let's reset your credential
-        </Typography>
+        </Typography> */}
       </Grid>
 
       <Grid item xs={6} sm={6} md={6} lg={6} xl={6} xxl={6} elevation={6} className={classes.resetForm}>
+        {/* Back to home page button */}
+        <Grid className={classes.buttons}>
+          <Button
+            variant="contained"
+            color="secondary"
+            className={classes.homeBtn}
+            component={RouterLink} to="/home">
+            Home
+          </Button>
+        </Grid>
+
         <div>
           <Avatar className={classes.avatar}>
             <LoyaltyIcon />
@@ -112,7 +138,9 @@ const ForgotCredential = () => {
             </Button>
             <Grid container>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link
+                  variant="body2"
+                  component={RouterLink} to="/register">
                   {"New User? Sign Up"}
                 </Link>
               </Grid>

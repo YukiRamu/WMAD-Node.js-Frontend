@@ -1,11 +1,10 @@
 import React from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Link from '@material-ui/core/Link';
-import Box from '@material-ui/core/Box';
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import LoyaltyIcon from '@material-ui/icons/Loyalty';
 import Typography from '@material-ui/core/Typography';
@@ -26,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: "inherit"
   },
   image: {
-    backgroundImage: 'url(https://source.unsplash.com/random)',
+    backgroundImage: 'url(https://source.unsplash.com/1600x900/?nature,water)',
     backgroundRepeat: 'no-repeat',
     backgroundColor:
       theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
@@ -41,10 +40,26 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     textAlign: "center",
+    fontFamily: "Lora, serif"
   },
   avatar: {
     margin: "1rem auto",
     backgroundColor: theme.palette.secondary.main,
+  },
+  buttons: {
+    marginLeft: "auto",
+    textAlign: "right",
+    paddingTop: "1rem"
+  },
+  homeBtn: {
+    backgroundColor: '#ffffff4d',
+    border: 0,
+    borderRadius: 3,
+    boxShadow: 'rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px',
+    color: "#f50057",
+    margin: "0.5rem",
+    '&:hover': { color: "white" },
+    fontFamily: "Lora, serif"
   },
   form: {
     width: '100%',
@@ -52,6 +67,7 @@ const useStyles = makeStyles((theme) => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
+    fontFamily: "Lora, serif"
   },
 }));
 
@@ -65,6 +81,17 @@ const Register = () => {
       <Grid item xs={6} sm={6} md={6} lg={6} xl={6} xxl={6} className={classes.image} />
 
       <Grid item xs={6} sm={6} md={6} lg={6} xl={6} xxl={6} elevation={6} className={classes.registerForm}>
+        {/* Back to home page button */}
+        <Grid className={classes.buttons}>
+          <Button
+            variant="contained"
+            color="secondary"
+            className={classes.homeBtn}
+            component={RouterLink} to="/home">
+            Home
+          </Button>
+        </Grid>
+
         <div>
           <Avatar className={classes.avatar}>
             <LoyaltyIcon />
@@ -120,6 +147,18 @@ const Register = () => {
                   autoComplete="current-password"
                 />
               </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password Confirmation"
+                  type="password"
+                  id="password"
+                  autoComplete="current-password"
+                />
+              </Grid>
             </Grid>
             <Button
               type="submit"
@@ -132,14 +171,13 @@ const Register = () => {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link
+                  variant="body2"
+                  component={RouterLink} to="/login">
                   Already have an account? Sign in
                 </Link>
               </Grid>
             </Grid>
-            <Box mt={5}>
-              <Copyright />
-            </Box>
           </form>
         </div>
       </Grid>

@@ -1,15 +1,14 @@
 import React from 'react';
 import {
-  HashRouter,
   BrowserRouter,
   Switch,
   Route
 } from 'react-router-dom';
 import './App.css';
-import Login from './components/Authentication/Login';
-import Register from './components/Authentication/Register';
-import Home from './components/Home/Home';
-import ForgotCredential from './components/Authentication/ForgotCredential';
+import Login from '../Authentication/Login';
+import Register from '../Authentication/Register';
+import Home from '../Home/Home';
+import ForgotCredential from '../Authentication/ForgotCredential';
 
 const App = () => {
   return (

@@ -1,5 +1,6 @@
 /* Landing Page */
 import React from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
@@ -7,13 +8,15 @@ import Copyright from '../Utils/Copyright';
 import { Container } from '@material-ui/core';
 
 /* Styles */
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     height: '100vh',
     backgroundImage: "url(../image/bg1.jpg)",
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
+    maxWidth: "inherit",
+    fontFamily: "Lora, serif"
   },
   buttons: {
     textAlign: "right",
@@ -27,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#f50057",
     margin: "0.5rem",
     '&:hover': { color: "white" },
+    fontFamily: "Lora, serif"
   },
   registerBtn: {
     backgroundColor: '#ffffff4d',
@@ -36,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#f50057",
     margin: "0.5rem",
     '&:hover': { color: "white" },
+    fontFamily: "Lora, serif"
   },
   header: {
     position: "absolute",
@@ -55,10 +60,18 @@ const Home = () => {
       <Container className={classes.root}>
 
         <Grid className={classes.buttons}>
-          <Button variant="contained" color="secondary" className={classes.logInBtn}>
+          <Button
+            variant="contained"
+            color="secondary"
+            className={classes.logInBtn}
+            component={RouterLink} to="/login">
             Log in
           </Button>
-          <Button variant="contained" color="secondary" className={classes.registerBtn}>
+          <Button
+            variant="contained"
+            color="secondary"
+            className={classes.registerBtn}
+            component={RouterLink} to="/register">
             Register
           </Button>
         </Grid>
