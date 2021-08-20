@@ -17,7 +17,7 @@ const Copyright = () => {
   );
 };
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   footer: {
     position: "absolute",
     bottom: "5%",

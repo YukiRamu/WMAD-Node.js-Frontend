@@ -6,11 +6,17 @@ import { store } from './redux/store';
 import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
 
+/* Importing color palette */
+import { ThemeProvider } from "@material-ui/core/styles";
+import Colors from "./components/Utils/Colors";
+
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <ThemeProvider theme={Colors}>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

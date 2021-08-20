@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     margin: "1rem auto",
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: theme.palette.accent.main,
   },
   buttons: {
     marginLeft: "auto",
@@ -65,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
   homeBtn: {
     backgroundColor: '#ffffff4d',
     border: 0,
-    borderRadius: 3,
+    borderRadius: "10vw",
     boxShadow: 'rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px',
     color: "#f50057",
     margin: "0.5rem",
@@ -75,10 +75,22 @@ const useStyles = makeStyles((theme) => ({
   form: {
     width: '100%',
     marginTop: theme.spacing(1),
+    fontFamily: "Lora, serif"
+  },
+  input: {
+    [`& fieldset`]: {
+      borderRadius: "10vw",
+    },
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
-    fontFamily: "Lora, serif"
+    fontFamily: "Lora, serif",
+    backgroundColor: theme.palette.accent.main, // using custom color palette
+    borderRadius: "10vw",
+    '&:hover': {
+      backgroundColor: theme.palette.accent.dark,
+      color: "white"
+    },
   },
 }));
 
@@ -126,6 +138,7 @@ const ForgotCredential = () => {
               name="email"
               autoComplete="email"
               autoFocus
+              className={classes.input}
             />
             <Button
               type="submit"

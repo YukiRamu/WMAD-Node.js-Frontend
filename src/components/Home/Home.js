@@ -8,10 +8,10 @@ import Copyright from '../Utils/Copyright';
 import { Container } from '@material-ui/core';
 
 /* Styles */
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     height: '100vh',
-    backgroundImage: "url(../image/bg1.jpg)",
+    backgroundImage: "url(../image/bg5.jpg)",
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
@@ -25,7 +25,7 @@ const useStyles = makeStyles(() => ({
   logInBtn: {
     backgroundColor: '#ffffff4d',
     border: 0,
-    borderRadius: 3,
+    borderRadius: "10vw",
     boxShadow: 'rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px',
     color: "#f50057",
     margin: "0.5rem",
@@ -35,7 +35,7 @@ const useStyles = makeStyles(() => ({
   registerBtn: {
     backgroundColor: '#ffffff4d',
     border: 0,
-    borderRadius: 3,
+    borderRadius: "10vw",
     boxShadow: 'rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px',
     color: "#f50057",
     margin: "0.5rem",
@@ -48,6 +48,9 @@ const useStyles = makeStyles(() => ({
     transform: "translateY(-50%)",
     margin: "0",
     padding: "0",
+    fontSize: "3rem",
+    paddingLeft: "1rem",
+    color: "#FEFEFE"
   },
 
 }));

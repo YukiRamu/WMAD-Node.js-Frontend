@@ -1,5 +1,10 @@
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
+/* importing custom modules */
+import Copyright from '../Utils/Copyright';
+import Styles from '../Utils/Styles';
+
+/* importing Material UI components */
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -9,7 +14,6 @@ import Grid from '@material-ui/core/Grid';
 import LoyaltyIcon from '@material-ui/icons/Loyalty';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import Copyright from '../Utils/Copyright';
 import { Container } from '@material-ui/core';
 
 /* Styles */
@@ -32,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundSize: 'cover',
     backgroundPosition: 'center',
   },
-  registerForm: {
+  authForm: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -44,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     margin: "1rem auto",
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: theme.palette.accent.main,
   },
   buttons: {
     marginLeft: "auto",
@@ -54,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
   homeBtn: {
     backgroundColor: '#ffffff4d',
     border: 0,
-    borderRadius: 3,
+    borderRadius: "10vw",
     boxShadow: 'rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px',
     color: "#f50057",
     margin: "0.5rem",
@@ -64,10 +68,22 @@ const useStyles = makeStyles((theme) => ({
   form: {
     width: '100%',
     marginTop: theme.spacing(1),
+    fontFamily: "Lora, serif"
+  },
+  input: {
+    [`& fieldset`]: {
+      borderRadius: "10vw",
+    },
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
-    fontFamily: "Lora, serif"
+    fontFamily: "Lora, serif",
+    backgroundColor: theme.palette.accent.main, // using custom color palette
+    borderRadius: "10vw",
+    '&:hover': {
+      backgroundColor: theme.palette.accent.dark,
+      color: "white"
+    },
   },
 }));
 
@@ -80,7 +96,7 @@ const Register = () => {
       <CssBaseline />
       <Grid item xs={6} sm={6} md={6} lg={6} xl={6} xxl={6} className={classes.image} />
 
-      <Grid item xs={6} sm={6} md={6} lg={6} xl={6} xxl={6} elevation={6} className={classes.registerForm}>
+      <Grid item xs={6} sm={6} md={6} lg={6} xl={6} xxl={6} elevation={6} className={classes.authForm}>
         {/* Back to home page button */}
         <Grid className={classes.buttons}>
           <Button
@@ -111,6 +127,7 @@ const Register = () => {
                   id="firstName"
                   label="First Name"
                   autoFocus
+                  className={classes.input}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -122,6 +139,7 @@ const Register = () => {
                   label="Last Name"
                   name="lastName"
                   autoComplete="lname"
+                  className={classes.input}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -133,6 +151,7 @@ const Register = () => {
                   label="Email Address (User Name)"
                   name="email"
                   autoComplete="email"
+                  className={classes.input}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -145,6 +164,7 @@ const Register = () => {
                   type="password"
                   id="password"
                   autoComplete="current-password"
+                  className={classes.input}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -157,6 +177,7 @@ const Register = () => {
                   type="password"
                   id="password"
                   autoComplete="current-password"
+                  className={classes.input}
                 />
               </Grid>
             </Grid>
