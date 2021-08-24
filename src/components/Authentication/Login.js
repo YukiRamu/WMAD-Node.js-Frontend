@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import axios from "axios";
+import { Base64 } from 'js-base64';
 /* importing custom modules */
 import Copyright from '../Utils/Copyright';
 import Styles from '../Utils/Styles';
@@ -114,7 +115,44 @@ const useStyles = makeStyles(theme => ({
 /* Component */
 const Login = () => {
 
+  //private hook
   const [loginUser, setLoginUser] = useState({ username: "", password: "" });
+
+  /* When the component is mounted */
+  const authorizedUser = {
+    username: "yuki",
+    password: "password"
+  };
+
+  useEffect(() => {
+    //set header
+    const headers = new Headers();
+    headers.set('Authorization', 'Basic ' + base64.encode(authorizedUser.username + ":" + authorizedUser.password));
+
+    //pass data to backend
+    fetch("http://localhost:5000/api/login", {
+      method: "PUT",
+      headers: {
+        "Content-type": "application/json"
+      },
+      body: JSON.stringify({
+        loginUser
+      }),
+      credentials: "same-origin"
+    })
+      .then(res => {
+        if (!res.OK) {
+          throw res.statusText;
+        } else {
+          console.log(res.json());
+          return res.json();
+        }
+      })
+      .catch(error => {
+        console.error(`Login failed with the error: ${error}`);
+        return error;
+      });
+  }, []);
 
   /* Methods */
   const login = async (e) => {
@@ -143,27 +181,27 @@ const Login = () => {
       loginUser
     }));
 
-    await fetch("http://localhost:5000/api/login", {
-      method: "PUT",
-      headers: {
-        "Content-type": "application/json"
-      },
-      body: JSON.stringify({
-        loginUser
-      })
-    })
-      .then(res => {
-        if (!res.OK) {
-          throw res.statusText;
-        } else {
-          console.log(res.json());
-          return res.json();
-        }
-      })
-      .catch(error => {
-        console.error(`Login failed with the error: ${error}`);
-        return error;
-      });
+    // fetch("http://localhost:5000/api/login", {
+    //   method: "PUT",
+    //   headers: {
+    //     "Content-type": "application/json"
+    //   },
+    //   body: JSON.stringify({
+    //     loginUser
+    //   })
+    // })
+    //   .then(res => {
+    //     if (!res.OK) {
+    //       throw res.statusText;
+    //     } else {
+    //       console.log(res.json());
+    //       return res.json();
+    //     }
+    //   })
+    //   .catch(error => {
+    //     console.error(`Login failed with the error: ${error}`);
+    //     return error;
+    //   });
   };
 
   //const globalClasses = Styles(); // global style component ---- NOT WORKING!!!!
