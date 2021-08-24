@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
+import axios from "axios";
 /* importing custom modules */
 import Copyright from '../Utils/Copyright';
 import Styles from '../Utils/Styles';
@@ -113,10 +114,56 @@ const useStyles = makeStyles(theme => ({
 /* Component */
 const Login = () => {
 
+  const [loginUser, setLoginUser] = useState({ username: "", password: "" });
+
+  /* Methods */
+  const login = async (e) => {
+    e.preventDefault();
+    // try {
+    //   const config = {
+    //     headers: {
+    //       "Content-type": "application/json"
+    //     }
+    //   };
+    //   const { data } = await axios.post(
+    //     "http://localhost:5000/login",
+    //     {
+    //       loginUser
+    //     },
+    //     config
+    //   );
+    // } catch (error) {
+    //   console.error(`login handler failed with the error: ${error}`);
+    //   return error;
+    // }
+  
+    const loginResponse = await fetch("http://localhost:5000/api/login", {
+      method: "PUT",
+      headers: {
+        "Content-type": "application/json"
+      },
+      body: JSON.stringify({
+        loginUser
+      })
+    })
+      .then(res => {
+        if (!res.OK) {
+          throw res.statusText;
+        } else {
+          console.log(res.json());
+          return res.json();
+        }
+      })
+      .catch(error => {
+        console.error(`login handler failed with the error: ${error}`);
+        return error;
+      });
+  };
+
   //const globalClasses = Styles(); // global style component ---- NOT WORKING!!!!
   // console.log(globalClasses);
   const classes = useStyles(); //only for this component
-  console.log(classes);
+  //console.log(classes);
 
   return (
     <Container className={classes.loginContainer}>
@@ -149,7 +196,7 @@ const Login = () => {
           <Typography component="h1" variant="h5" className={classes.title}>
             to your account
           </Typography>
-          <form className={classes.form} noValidate>
+          <form className={classes.form} noValidate onSubmit={login}>
             <TextField
               variant="outlined"
               margin="normal"
@@ -161,6 +208,8 @@ const Login = () => {
               autoComplete="email"
               autoFocus
               className={classes.input}
+              value={loginUser.username}
+              onChange={(e) => setLoginUser({ ...loginUser, username: e.target.value })}
             />
             <TextField
               variant="outlined"
@@ -173,6 +222,8 @@ const Login = () => {
               id="password"
               autoComplete="current-password"
               className={classes.input}
+              value={loginUser.password}
+              onChange={(e) => setLoginUser({ ...loginUser, password: e.target.value })}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
@@ -183,7 +234,7 @@ const Login = () => {
               fullWidth
               variant="contained"
               className={classes.submit}
-              component={RouterLink} to="/dashboard"
+            // component={RouterLink} to="/dashboard"
             >
               Sign In
             </Button>
