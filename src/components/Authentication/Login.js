@@ -119,32 +119,33 @@ const Login = () => {
   const [loginUser, setLoginUser] = useState({ username: "", password: "" });
 
   /* When the component is mounted */
-  useEffect(() => {
-    //set header and pass data to backend
-    fetch("http://localhost:5000/api/login", {
-      method: "PUT",
-      headers: new Headers({
-        'Authorization': 'Basic ' + encode(loginUser.username + ":" + loginUser.password),
-        "Content-type": "application/json"
-      }),
-      body: JSON.stringify({
-        loginUser
-      }),
-      credentials: "same-origin"
-    })
-      .then(res => {
-        if (!res.OK) {
-          throw res.statusText;
-        } else {
-          console.log(res.json());
-          return res.json();
-        }
-      })
-      .catch(error => {
-        console.error(`Login failed with the error: ${error}`);
-        return error;
-      });
-  }, []);
+  // useEffect(() => {
+  //   //set header and pass data to backend
+  //   fetch("http://localhost:5000/api/login", {
+  //     method: "PUT",
+  //     headers: new Headers({
+  //       'Authorization': 'Basic ' + encode(loginUser.username + ":" + loginUser.password),
+  //       "Content-type": "application/json"
+  //     }),
+  //     body: JSON.stringify({
+  //       loginUser
+  //     }),
+  //     credentials: "same-origin"
+  //   })
+  //     .then(res => {
+  //       if (!res.OK) {
+  //         console.log(res);
+  //         throw res.statusText;
+  //       } else {
+  //         console.log(res.json());
+  //         return res.json();
+  //       }
+  //     })
+  //     .catch(error => {
+  //       console.error(`Login failed with the error: ${error}`);
+  //       return error;
+  //     });
+  // }, []);
 
   /* Methods */
   const login = async (e) => {
@@ -154,16 +155,19 @@ const Login = () => {
     // try {
     //   const config = {
     //     headers: {
+    //       'Authorization': 'Basic ' + encode(loginUser.username + ":" + loginUser.password),
     //       "Content-type": "application/json"
-    //     }
+    //     },
+    //     credentials: "same-origin"
     //   };
-    //   const { data } = await axios.post(
+    //   const data = await axios.post(
     //     "http://localhost:5000/api/login",
     //     {
     //       loginUser
     //     },
-    //     config
+    //     config,
     //   );
+    //   console.log(data);
     // } catch (error) {
     //   console.error(`Login failed with the error: ${error}`);
     //   return error;
@@ -181,6 +185,7 @@ const Login = () => {
       credentials: "same-origin"
     })
       .then(res => {
+        console.log(res);
         if (!res.OK) {
           throw res.statusText;
         } else {
