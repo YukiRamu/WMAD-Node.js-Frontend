@@ -9,6 +9,7 @@ import Login from '../Authentication/Login';
 import Register from '../Authentication/Register';
 import Home from '../Home/Home';
 import ForgotCredential from '../Authentication/ForgotCredential';
+import dashboard from '../Dashboard/dashboard';
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
           <Route path="/forgotCredential" component={ForgotCredential} />
+          <Route path="/dashboard" component={dashboard} />
         </Switch>
       </BrowserRouter>
     </>

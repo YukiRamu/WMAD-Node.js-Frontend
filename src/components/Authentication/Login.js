@@ -119,6 +119,8 @@ const Login = () => {
   /* Methods */
   const login = async (e) => {
     e.preventDefault();
+
+    // ****** TRY-CATCH VERSION ******
     // try {
     //   const config = {
     //     headers: {
@@ -137,9 +139,10 @@ const Login = () => {
     //   return error;
     // }
 
-    console.log(JSON.stringify({
+    console.log("Frontend Result", JSON.stringify({
       loginUser
     }));
+
     await fetch("http://localhost:5000/api/login", {
       method: "PUT",
       headers: {
@@ -199,7 +202,10 @@ const Login = () => {
           <Typography component="h1" variant="h5" className={classes.title}>
             to your account
           </Typography>
-          <form className={classes.form} noValidate onSubmit={login}>
+          <form
+            className={classes.form}
+            noValidate
+            onSubmit={login}>
             <TextField
               variant="outlined"
               margin="normal"
