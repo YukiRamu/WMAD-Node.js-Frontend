@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import axios from "axios";
-import { Base64 } from 'js-base64';
+import { encode } from "base-64";
 /* importing custom modules */
 import Copyright from '../Utils/Copyright';
 import Styles from '../Utils/Styles';
@@ -126,15 +126,16 @@ const Login = () => {
 
   useEffect(() => {
     //set header
-    const headers = new Headers();
-    headers.set('Authorization', 'Basic ' + base64.encode(authorizedUser.username + ":" + authorizedUser.password));
+    // const headers = new Headers();
+    // headers.set('Authorization', 'Basic ' + base64.encode(authorizedUser.username + ":" + authorizedUser.password));
 
     //pass data to backend
     fetch("http://localhost:5000/api/login", {
       method: "PUT",
-      headers: {
+      headers: new Headers({
+        'Authorization': 'Basic ' + encode(authorizedUser.username + ":" + authorizedUser.password),
         "Content-type": "application/json"
-      },
+      }),
       body: JSON.stringify({
         loginUser
       }),
