@@ -119,21 +119,12 @@ const Login = () => {
   const [loginUser, setLoginUser] = useState({ username: "", password: "" });
 
   /* When the component is mounted */
-  const authorizedUser = {
-    username: "yuki",
-    password: "password"
-  };
-
   useEffect(() => {
-    //set header
-    // const headers = new Headers();
-    // headers.set('Authorization', 'Basic ' + base64.encode(authorizedUser.username + ":" + authorizedUser.password));
-
-    //pass data to backend
+    //set header and pass data to backend
     fetch("http://localhost:5000/api/login", {
       method: "PUT",
       headers: new Headers({
-        'Authorization': 'Basic ' + encode(authorizedUser.username + ":" + authorizedUser.password),
+        'Authorization': 'Basic ' + encode(loginUser.username + ":" + loginUser.password),
         "Content-type": "application/json"
       }),
       body: JSON.stringify({
@@ -178,14 +169,10 @@ const Login = () => {
     //   return error;
     // }
 
-    console.log("Frontend Result", JSON.stringify({
-      loginUser
-    }));
-
     fetch("http://localhost:5000/api/login", {
       method: "PUT",
       headers: new Headers({
-        'Authorization': 'Basic ' + encode(authorizedUser.username + ":" + authorizedUser.password),
+        'Authorization': 'Basic ' + encode(loginUser.username + ":" + loginUser.password),
         "Content-type": "application/json"
       }),
       body: JSON.stringify({
@@ -197,7 +184,7 @@ const Login = () => {
         if (!res.OK) {
           throw res.statusText;
         } else {
-          console.log(res.json());
+          console.log("response is ok ", res.json());
           return res.json();
         }
       })
