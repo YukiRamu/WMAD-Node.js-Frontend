@@ -186,12 +186,14 @@ const Login = () => {
     })
       .then(res => {
         console.log(res);
-        if (!res.OK) {
+        if (!res.ok) {
           throw res.statusText;
         } else {
-          console.log("response is ok ", res.json());
           return res.json();
         }
+      })
+      .then(data => {
+        console.log(data); //working!
       })
       .catch(error => {
         console.error(`Login failed with the error: ${error}`);
