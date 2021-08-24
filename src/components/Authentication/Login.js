@@ -182,27 +182,29 @@ const Login = () => {
       loginUser
     }));
 
-    // fetch("http://localhost:5000/api/login", {
-    //   method: "PUT",
-    //   headers: {
-    //     "Content-type": "application/json"
-    //   },
-    //   body: JSON.stringify({
-    //     loginUser
-    //   })
-    // })
-    //   .then(res => {
-    //     if (!res.OK) {
-    //       throw res.statusText;
-    //     } else {
-    //       console.log(res.json());
-    //       return res.json();
-    //     }
-    //   })
-    //   .catch(error => {
-    //     console.error(`Login failed with the error: ${error}`);
-    //     return error;
-    //   });
+    fetch("http://localhost:5000/api/login", {
+      method: "PUT",
+      headers: new Headers({
+        'Authorization': 'Basic ' + encode(authorizedUser.username + ":" + authorizedUser.password),
+        "Content-type": "application/json"
+      }),
+      body: JSON.stringify({
+        loginUser
+      }),
+      credentials: "same-origin"
+    })
+      .then(res => {
+        if (!res.OK) {
+          throw res.statusText;
+        } else {
+          console.log(res.json());
+          return res.json();
+        }
+      })
+      .catch(error => {
+        console.error(`Login failed with the error: ${error}`);
+        return error;
+      });
   };
 
   //const globalClasses = Styles(); // global style component ---- NOT WORKING!!!!
