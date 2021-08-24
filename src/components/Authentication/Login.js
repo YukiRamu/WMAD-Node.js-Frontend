@@ -126,18 +126,21 @@ const Login = () => {
     //     }
     //   };
     //   const { data } = await axios.post(
-    //     "http://localhost:5000/login",
+    //     "http://localhost:5000/api/login",
     //     {
     //       loginUser
     //     },
     //     config
     //   );
     // } catch (error) {
-    //   console.error(`login handler failed with the error: ${error}`);
+    //   console.error(`Login failed with the error: ${error}`);
     //   return error;
     // }
-  
-    const loginResponse = await fetch("http://localhost:5000/api/login", {
+
+    console.log(JSON.stringify({
+      loginUser
+    }));
+    await fetch("http://localhost:5000/api/login", {
       method: "PUT",
       headers: {
         "Content-type": "application/json"
@@ -155,7 +158,7 @@ const Login = () => {
         }
       })
       .catch(error => {
-        console.error(`login handler failed with the error: ${error}`);
+        console.error(`Login failed with the error: ${error}`);
         return error;
       });
   };
