@@ -152,6 +152,26 @@ const Login = () => {
     e.preventDefault();
 
     // ****** Axios VERSION ******
+    try {
+      const response = await axios.put("http://localhost:5000/api/login", loginUser, {
+        headers: {
+          'Authorization': 'Basic ' + encode(loginUser.username + ":" + loginUser.password),
+          "Content-type": "application/json"
+        },
+        credentials: "same-origin"
+      });
+      console.log(response);
+      if (response.statusText !== "OK") {
+        throw response.statusText;
+      } else {
+        console.log(response.data);
+        return response.data;
+      }
+    } catch (error) {
+      console.error(`Login failed with the error: ${error}`);
+      return error;
+    }
+
     // axios.put("http://localhost:5000/api/login", loginUser, {
     //   headers: {
     //     'Authorization': 'Basic ' + encode(loginUser.username + ":" + loginUser.password),
@@ -176,30 +196,30 @@ const Login = () => {
     //   });
 
     // ****** fetch VERSION ******
-    fetch("http://localhost:5000/api/login", {
-      method: "PUT",
-      headers: new Headers({
-        'Authorization': 'Basic ' + encode(loginUser.username + ":" + loginUser.password),
-        "Content-type": "application/json"
-      }),
-      body: JSON.stringify(loginUser),
-      credentials: "same-origin"
-    })
-      .then(res => {
-        console.log(res);
-        if (!res.ok) {
-          throw res.statusText;
-        } else {
-          return res.json();
-        }
-      })
-      .then(data => {
-        console.log(data); //working!
-      })
-      .catch(error => {
-        console.error(`Login failed with the error: ${error}`);
-        return error;
-      });
+    // fetch("http://localhost:5000/api/login", {
+    //   method: "PUT",
+    //   headers: new Headers({
+    //     'Authorization': 'Basic ' + encode(loginUser.username + ":" + loginUser.password),
+    //     "Content-type": "application/json"
+    //   }),
+    //   body: JSON.stringify(loginUser),
+    //   credentials: "same-origin"
+    // })
+    //   .then(res => {
+    //     console.log(res);
+    //     if (!res.ok) {
+    //       throw res.statusText;
+    //     } else {
+    //       return res.json();
+    //     }
+    //   })
+    //   .then(data => {
+    //     console.log(data); //working!
+    //   })
+    //   .catch(error => {
+    //     console.error(`Login failed with the error: ${error}`);
+    //     return error;
+    //   });
   };
 
   //const globalClasses = Styles(); // global style component ---- NOT WORKING!!!!
