@@ -151,37 +151,38 @@ const Login = () => {
   const login = async (e) => {
     e.preventDefault();
 
-    // ****** TRY-CATCH VERSION ******
-    // try {
-    //   const config = {
-    //     headers: {
-    //       'Authorization': 'Basic ' + encode(loginUser.username + ":" + loginUser.password),
-    //       "Content-type": "application/json"
-    //     },
-    //     credentials: "same-origin"
-    //   };
-    //   const data = await axios.post(
-    //     "http://localhost:5000/api/login",
-    //     {
-    //       loginUser
-    //     },
-    //     config,
-    //   );
-    //   console.log(data);
-    // } catch (error) {
-    //   console.error(`Login failed with the error: ${error}`);
-    //   return error;
-    // }
+    // ****** Axios VERSION ******
+    // axios.put("http://localhost:5000/api/login", loginUser, {
+    //   headers: {
+    //     'Authorization': 'Basic ' + encode(loginUser.username + ":" + loginUser.password),
+    //     "Content-type": "application/json"
+    //   },
+    //   credentials: "same-origin"
+    // })
+    //   .then(res => {
+    //     console.log(res);
+    //     if (res.statusText !== "OK") {
+    //       throw res.statusText;
+    //     } else {
+    //       return res.data;
+    //     }
+    //   })
+    //   .then(data => {
+    //     console.log(data); //working!
+    //   })
+    //   .catch(error => {
+    //     console.error(`Login failed with the error: ${error}`);
+    //     return error;
+    //   });
 
+    // ****** fetch VERSION ******
     fetch("http://localhost:5000/api/login", {
       method: "PUT",
       headers: new Headers({
         'Authorization': 'Basic ' + encode(loginUser.username + ":" + loginUser.password),
         "Content-type": "application/json"
       }),
-      body: JSON.stringify({
-        loginUser
-      }),
+      body: JSON.stringify(loginUser),
       credentials: "same-origin"
     })
       .then(res => {
