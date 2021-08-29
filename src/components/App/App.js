@@ -9,7 +9,7 @@ import Login from '../Authentication/Login';
 import Register from '../Authentication/Register';
 import Home from '../Home/Home';
 import ForgotCredential from '../Authentication/ForgotCredential';
-import dashboard from '../Dashboard/dashboard';
+import Chat from '../Chat/Chat';
 
 const App = () => {
   return (
@@ -18,12 +18,12 @@ const App = () => {
       <BrowserRouter>
         {/* Router Switch */}
         <Switch>
-          <Route exact path="/" component={Home} />
+          <Route exact path="/" component={Home} /> 
           <Route path="/home" component={Home} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
           <Route path="/forgotCredential" component={ForgotCredential} />
-          <Route path="/dashboard" component={dashboard} />
+          <Route path="/chat" component={Chat} />
         </Switch>
       </BrowserRouter>
     </>

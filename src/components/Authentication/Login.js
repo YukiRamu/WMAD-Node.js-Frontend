@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useHistory } from 'react-router-dom';
+import { useSelector, useDispatch } from "react-redux";
+import { ChatSelector, login } from "../../redux/chatSlice";
 import axios from "axios";
 import { encode } from "base-64";
 /* importing custom modules */
@@ -117,83 +119,82 @@ const Login = () => {
 
   //private hook
   const [loginUser, setLoginUser] = useState({ username: "", password: "" });
+  const [room, setRoom] = useState("");
 
-  /* When the component is mounted */
-  // useEffect(() => {
-  //   //set header and pass data to backend
-  //   fetch("http://localhost:5000/api/login", {
-  //     method: "PUT",
-  //     headers: new Headers({
-  //       'Authorization': 'Basic ' + encode(loginUser.username + ":" + loginUser.password),
-  //       "Content-type": "application/json"
-  //     }),
-  //     body: JSON.stringify({
-  //       loginUser
-  //     }),
-  //     credentials: "same-origin"
-  //   })
-  //     .then(res => {
-  //       if (!res.OK) {
-  //         console.log(res);
-  //         throw res.statusText;
-  //       } else {
-  //         console.log(res.json());
-  //         return res.json();
-  //       }
-  //     })
-  //     .catch(error => {
-  //       console.error(`Login failed with the error: ${error}`);
-  //       return error;
-  //     });
-  // }, []);
+  //Use dispatch method from redux
+  const dispatch = useDispatch();
+  let history = useHistory();
 
   /* Methods */
-  const login = async (e) => {
+  const login = (e) => {
     e.preventDefault();
 
-    // ****** Axios VERSION ******
-    try {
-      const response = await axios.put("http://localhost:5000/api/login", loginUser, {
-        headers: {
-          'Authorization': 'Basic ' + encode(loginUser.username + ":" + loginUser.password),
-          "Content-type": "application/json"
-        },
-        credentials: "same-origin"
+    // ****** Axios VERSION: connect to backend ******
+    axios.put("http://localhost:5000/api/login", loginUser, {
+      headers: {
+        'Authorization': 'Basic ' + encode(loginUser.username + ":" + loginUser.password),
+        "Content-type": "application/json"
+      },
+      credentials: "same-origin"
+    })
+      .then(res => {
+        console.log(res);
+        if (res.statusText !== "OK") {
+          throw res.statusText;
+        } else {
+          return res.data;
+        }
+      })
+      .then(data => {
+        console.log(data);
+        if (data.msg === "SUCCESS") {
+          //dispatch --- **** TypeError: e.preventDefault is not a function!!!
+          // dispatch(login({
+          //   user: {
+          //     username: data.username,
+          //     password: data.password
+          //   },
+          //   room: room
+          // }));
+          history.push("/chat"); //go to chat dashboard
+        } else {
+          alert("Login failed. Incorrect user info.");
+        }
+        return data;
+      })
+      .catch(error => {
+        console.error(`Login failed with the error: ${error}`);
+        return error;
       });
-      console.log(response);
-      if (response.statusText !== "OK") {
-        throw response.statusText;
-      } else {
-        console.log(response.data);
-        return response.data;
-      }
-    } catch (error) {
-      console.error(`Login failed with the error: ${error}`);
-      return error;
-    }
 
-    // axios.put("http://localhost:5000/api/login", loginUser, {
-    //   headers: {
-    //     'Authorization': 'Basic ' + encode(loginUser.username + ":" + loginUser.password),
-    //     "Content-type": "application/json"
-    //   },
-    //   credentials: "same-origin"
-    // })
-    //   .then(res => {
-    //     console.log(res);
-    //     if (res.statusText !== "OK") {
-    //       throw res.statusText;
-    //     } else {
-    //       return res.data;
-    //     }
-    //   })
-    //   .then(data => {
-    //     console.log(data); //working!
-    //   })
-    //   .catch(error => {
-    //     console.error(`Login failed with the error: ${error}`);
-    //     return error;
+    // try {
+    //   const response = await axios.put("http://localhost:5000/api/login", loginUser, {
+    //     headers: {
+    //       'Authorization': 'Basic ' + encode(loginUser.username + ":" + loginUser.password),
+    //       "Content-type": "application/json"
+    //     },
+    //     credentials: "same-origin"
     //   });
+    //   console.log(response);
+    //   if (response.statusText !== "OK") {
+    //     throw response.statusText;
+    //   } else {
+    //     console.log("I am here!!!! ", response.data);
+    //     //dispatch
+    //     dispatch(login({
+    //       user: {
+    //         username: response.data.username,
+    //         password: response.data.password
+    //       },
+    //       room: room
+    //     }));
+    //     history.push("/chat"); //go to chat dashboard
+    //     //return response.data;
+    //   }
+    // } catch (error) {
+    //   console.error(`Login failed with the error: ${error}`);
+    //   return error;
+    // }
 
     // ****** fetch VERSION ******
     // fetch("http://localhost:5000/api/login", {
@@ -260,7 +261,6 @@ const Login = () => {
           </Typography>
           <form
             className={classes.form}
-            noValidate
             onSubmit={login}>
             <TextField
               variant="outlined"
@@ -290,6 +290,19 @@ const Login = () => {
               value={loginUser.password}
               onChange={(e) => setLoginUser({ ...loginUser, password: e.target.value })}
             />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="room"
+              label="room"
+              type="text"
+              id="room"
+              className={classes.input}
+              value={room}
+              onChange={(e) => setRoom(e.target.value)}
+            />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
@@ -299,7 +312,7 @@ const Login = () => {
               fullWidth
               variant="contained"
               className={classes.submit}
-            // component={RouterLink} to="/dashboard"
+            //component={RouterLink} to="/chat"
             >
               Sign In
             </Button>
