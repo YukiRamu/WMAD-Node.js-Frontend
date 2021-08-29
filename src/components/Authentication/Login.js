@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link as RouterLink, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
-import { ChatSelector, login } from "../../redux/chatSlice";
+import { authorize, ChatSelector, login } from "../../redux/chatSlice";
 import axios from "axios";
 import { encode } from "base-64";
 /* importing custom modules */
@@ -126,101 +126,41 @@ const Login = () => {
   let history = useHistory();
 
   /* Methods */
-  const login = (e) => {
+  const login = async (e) => {
     e.preventDefault();
 
     // ****** Axios VERSION: connect to backend ******
-    axios.put("http://localhost:5000/api/login", loginUser, {
-      headers: {
-        'Authorization': 'Basic ' + encode(loginUser.username + ":" + loginUser.password),
-        "Content-type": "application/json"
-      },
-      credentials: "same-origin"
-    })
-      .then(res => {
-        console.log(res);
-        if (res.statusText !== "OK") {
-          throw res.statusText;
-        } else {
-          return res.data;
-        }
-      })
-      .then(data => {
-        console.log(data);
-        if (data.msg === "SUCCESS") {
-          //dispatch --- **** TypeError: e.preventDefault is not a function!!!
-          // dispatch(login({
-          //   user: {
-          //     username: data.username,
-          //     password: data.password
-          //   },
-          //   room: room
-          // }));
-          history.push("/chat"); //go to chat dashboard
-        } else {
-          alert("Login failed. Incorrect user info.");
-        }
-        return data;
-      })
-      .catch(error => {
-        console.error(`Login failed with the error: ${error}`);
-        return error;
+    try {
+      const response = await axios.put("http://localhost:5000/api/login", loginUser, {
+        headers: {
+          'Authorization': 'Basic ' + encode(loginUser.username + ":" + loginUser.password),
+          "Content-type": "application/json"
+        },
+        credentials: "same-origin"
       });
+      if (response.statusText !== "OK") {
+        throw response.statusText;
+      } else {
+        // Only for authorized user
 
-    // try {
-    //   const response = await axios.put("http://localhost:5000/api/login", loginUser, {
-    //     headers: {
-    //       'Authorization': 'Basic ' + encode(loginUser.username + ":" + loginUser.password),
-    //       "Content-type": "application/json"
-    //     },
-    //     credentials: "same-origin"
-    //   });
-    //   console.log(response);
-    //   if (response.statusText !== "OK") {
-    //     throw response.statusText;
-    //   } else {
-    //     console.log("I am here!!!! ", response.data);
-    //     //dispatch
-    //     dispatch(login({
-    //       user: {
-    //         username: response.data.username,
-    //         password: response.data.password
-    //       },
-    //       room: room
-    //     }));
-    //     history.push("/chat"); //go to chat dashboard
-    //     //return response.data;
-    //   }
-    // } catch (error) {
-    //   console.error(`Login failed with the error: ${error}`);
-    //   return error;
-    // }
-
-    // ****** fetch VERSION ******
-    // fetch("http://localhost:5000/api/login", {
-    //   method: "PUT",
-    //   headers: new Headers({
-    //     'Authorization': 'Basic ' + encode(loginUser.username + ":" + loginUser.password),
-    //     "Content-type": "application/json"
-    //   }),
-    //   body: JSON.stringify(loginUser),
-    //   credentials: "same-origin"
-    // })
-    //   .then(res => {
-    //     console.log(res);
-    //     if (!res.ok) {
-    //       throw res.statusText;
-    //     } else {
-    //       return res.json();
-    //     }
-    //   })
-    //   .then(data => {
-    //     console.log(data); //working!
-    //   })
-    //   .catch(error => {
-    //     console.error(`Login failed with the error: ${error}`);
-    //     return error;
-    //   });
+        //dispatch --- not working! TypeError: e.preventDefault is not a function. need to create a thunk
+        // dispatch(authorize({
+        //   user: {
+        //     username: response.data.username,
+        //     password: response.data.password
+        //   },
+        //   room: room
+        // }));
+        history.push({
+          pathname: '/chat',
+          search: `?username=${response.data.username}&room=${room}`,
+          state: { detail: response.data }
+        });
+      }
+    } catch (error) {
+      console.error(`Login failed with the error: ${error}`);
+      return error;
+    }
   };
 
   //const globalClasses = Styles(); // global style component ---- NOT WORKING!!!!
