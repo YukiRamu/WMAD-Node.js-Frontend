@@ -57,12 +57,14 @@ const Chat = ({ location }) => {
     setUsername(username);
     setRoom(room);
 
+    //send message to the server
     socket.emit("join", { username, room }, () => {
 
     });
 
     //disconnect event
     return () => {
+      //send message to the server
       socket.emit("disconnect");
       socket.off();
     };
@@ -71,6 +73,7 @@ const Chat = ({ location }) => {
 
   //store messages into an array state 
   useEffect(() => {
+    //get message from the server
     socket.on("message", (message) => {
       setMessages(messages => [...messages, message]);
     });
@@ -81,6 +84,7 @@ const Chat = ({ location }) => {
     e.preventDefault();
 
     if (message) {
+      //send message to the server
       socket.emit('sendMessage', message, () => setMessage(''));
     }
   };
@@ -95,7 +99,7 @@ const Chat = ({ location }) => {
         </Typography>
         <div className={classes.container}>
           {/* Nav bar */}
-          <InfoBar room={room}/>
+          <InfoBar room={room} />
           {/* <TextField
             variant="outlined"
             margin="normal"
