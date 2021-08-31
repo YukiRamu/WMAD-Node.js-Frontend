@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import queryString from 'query-string';
 import io from "socket.io-client";
+import InfoBar from '../InfoBar/InfoBar';
 
 /* importing Material UI components */
 import Avatar from '@material-ui/core/Avatar';
@@ -15,6 +16,7 @@ import LoyaltyIcon from '@material-ui/icons/Loyalty';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { Container } from '@material-ui/core';
+
 let socket;
 
 /* Styles */
@@ -78,12 +80,12 @@ const Chat = ({ location }) => {
   const sendMessage = (e) => {
     e.preventDefault();
 
-    if(message) {
+    if (message) {
       socket.emit('sendMessage', message, () => setMessage(''));
     }
   };
 
-  console.log(message, messages)
+  console.log(message, messages);
 
   return (
     <>
@@ -92,7 +94,9 @@ const Chat = ({ location }) => {
           Welcome to the chat room!
         </Typography>
         <div className={classes.container}>
-          <TextField
+          {/* Nav bar */}
+          <InfoBar room={room}/>
+          {/* <TextField
             variant="outlined"
             margin="normal"
             fullWidth
@@ -103,7 +107,7 @@ const Chat = ({ location }) => {
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             onKeyPress={e => e.key === "Enter" ? sendMessage(e) : null}
-          />
+          /> */}
         </div>
       </Container>
 
