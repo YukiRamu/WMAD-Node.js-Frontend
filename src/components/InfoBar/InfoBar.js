@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 
 //image source
 import closeIcon from "../../icons/closeIcon.png";
@@ -14,6 +14,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Grid from '@material-ui/core/Grid';
 import LoyaltyIcon from '@material-ui/icons/Loyalty';
+import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { Container } from '@material-ui/core';
@@ -23,11 +24,26 @@ const useStyles = makeStyles(theme => ({
   infoBarcontainer: {
     padding: "0",
     margin: "0",
-    fontFamily: "Lora, serif",
-    backgroundColor: "pink"
+    fontFamily: "Lora, serif !important",
+    backgroundColor: "pink",
+    display: "flex",
+    justifyContent: "center",
+    flexDirection: "row",
+    alignItems: "center",
   },
   leftInnerContainer: {
-
+    display: "flex",
+    margin: "1rem"
+  },
+  onlinIcon: {
+    borderRadius: "50%",
+    height: "fit-content",
+    display: "block",
+    margin: "auto"
+  },
+  title: {
+    margin: " 0 1rem",
+    fontFamily: "Lora, serif !important",
   },
   rightInnerContainer: {
 
@@ -41,16 +57,16 @@ const InfoBar = ({ room }) => {
 
   return (
     <>
-      <div className={classes.infoBarcontainer}>
+      <Container className={classes.infoBarcontainer}>
         <div className={classes.leftInnerContainer}>
           <img className={classes.onlinIcon} src={onlineIcon} alt="online image" />
-          <h3>{room}</h3>
+          <Typography component="h2" className={classes.title}>{room}</Typography>
         </div>
 
         <div className={classes.rightInnerContainer}>
-          <Link href="/"><img src={closeIcon} alt="close image" /></Link>
+          <Link component={RouterLink} to="/home"><img src={closeIcon} alt="close image" /></Link>
         </div>
-      </div>
+      </Container>
     </>
   );
 };

@@ -25,13 +25,15 @@ const useStyles = makeStyles(theme => ({
     height: '100vh',
     padding: "0",
     margin: "0",
-    display: "flex",
     width: "100%",
-    flexWrap: "wrap",
     boxSizing: "border-box",
     maxWidth: "inherit",
-    fontFamily: "Lora, serif"
+    fontFamily: "Lora, serif !important"
   },
+  title: {
+    textAlign: "center",
+    fontFamily: "Lora, serif !important",
+  }
 }));
 
 
@@ -94,7 +96,7 @@ const Chat = ({ location }) => {
   return (
     <>
       <Container className={classes.chatContainer}>
-        <Typography component="h1" variant="h5" className={classes.message}>
+        <Typography component="h1" variant="h5" className={classes.title}>
           Welcome to the chat room!
         </Typography>
         <div className={classes.container}>
