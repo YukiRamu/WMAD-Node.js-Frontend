@@ -24,8 +24,9 @@ const useStyles = makeStyles(theme => ({
   infoBarcontainer: {
     padding: "0",
     margin: "0",
+    minWidth: "100vw",
     fontFamily: "Lora, serif !important",
-    backgroundColor: "pink",
+    backgroundColor: theme.palette.warmColor.light,
     display: "flex",
     justifyContent: "center",
     flexDirection: "row",

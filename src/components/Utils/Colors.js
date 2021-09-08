@@ -19,6 +19,11 @@ const Colors = createTheme({
     accent: {
       main: "#FCC149",
       dark: "#e65100"
+    },
+    warmColor: {  
+      main: "#f67e7d",
+      light:"#ffb997",
+      dark: "#621940"
     }
   },
 });

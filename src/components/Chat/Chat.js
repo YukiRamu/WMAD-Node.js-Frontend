@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import queryString from 'query-string';
 import io from "socket.io-client";
-import InfoBar from '../InfoBar/InfoBar';
+import InfoBar from './InfoBar';
+import MessageInput from './MessageInput';
 
 /* importing Material UI components */
 import Avatar from '@material-ui/core/Avatar';
@@ -35,7 +36,6 @@ const useStyles = makeStyles(theme => ({
     fontFamily: "Lora, serif !important",
   }
 }));
-
 
 /* Component */
 const Chat = ({ location }) => {
@@ -78,11 +78,12 @@ const Chat = ({ location }) => {
     socket.on("message", (message) => {
       setMessages(messages => [...messages, message]);
     });
-  }, [messages]);
+  }, []);
 
   //methods for sending messages
   const sendMessage = (e) => {
     e.preventDefault();
+    console.log("send message clicked. in Chat.js");
 
     if (message) {
       //send message to the server
@@ -90,7 +91,7 @@ const Chat = ({ location }) => {
     }
   };
 
-  console.log(message, messages);
+  console.log("chat.js line 94 ",message, messages);
 
   return (
     <>
@@ -101,22 +102,14 @@ const Chat = ({ location }) => {
         <div className={classes.container}>
           {/* Nav bar */}
           <InfoBar room={room} />
-          {/* <TextField
-            variant="outlined"
-            margin="normal"
-            fullWidth
-            id="text"
-            name="text"
-            autoFocus
-            className={classes.messageInput}
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            onKeyPress={e => e.key === "Enter" ? sendMessage(e) : null}
-          /> */}
+          {/* Message Input and Display Field */}
+          <MessageInput
+            message={message}
+            messages={messages}
+            setMessage={setMessage}
+            sendMessage={sendMessage} />
         </div>
       </Container>
-
-
     </>
   );
 };
